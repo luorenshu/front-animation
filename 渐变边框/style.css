@@ -1,0 +1,76 @@
+html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+}
+
+.card {
+    margin: 0 auto;
+    padding: 2em;
+    width: 300px;
+    background-color: #1c1f2b;
+    color: #fff;
+    border-radius: 10px;
+    position: relative;
+}
+
+/*角度*/
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+/*百分比*/
+@property --percentage {
+    syntax: "<percentage>";
+    initial-value: 0%;
+    inherits: false;
+}
+
+.card::after, .card::before {
+    --angle: 0deg;
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    /*background-image: conic-gradient(*/
+    /*        from 0deg,*/
+    /*        transparent var(--percentage),*/
+    /*        green var(--percentage),*/
+    /*        green calc(100% - var(--percentage))*/
+    /*);*/
+    background-image: conic-gradient(
+            from var(--angle),
+            #ff3333,
+            #00ffc4,
+            #fdae05,
+            #ff3333
+    );
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    z-index: -1;
+    padding: 3px;
+    border-radius: 10px;
+    animation: 3s spin linear infinite;
+}
+
+.card::before {
+    filter: blur(1.5rem);
+    opacity: 0.5;
+}
+
+@keyframes spin {
+    from {
+        --angle: 0deg;
+        --percentage: 100%;
+    }
+    to {
+        --angle: 360deg;
+        --percentage: 0%;
+    }
+}
